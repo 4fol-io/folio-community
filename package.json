@@ -1,0 +1,29 @@
+{
+	"private": true,
+	"devDependencies": {
+		"esbuild": "^0.15.12",
+		"npm-run-all": "^4.1.5"
+	},
+	"scripts": {
+		"development:js-admin": "npx esbuild ./assets/js/admin.js --target=es6 --bundle --outfile=./assets/js/admin.min.js",
+		"development:js-front": "npx esbuild ./assets/js/front.js --target=es6 --bundle --outfile=./assets/js/front.min.js",
+		"development:css-admin": "npx esbuild ./assets/css/admin.css --bundle --outfile=./assets/css/admin.min.css --external:*.png",
+		"development:css-front": "npx esbuild ./assets/css/front.css --bundle --outfile=./assets/css/front.min.css --external:*.png",
+		"development": "run-p development:**",
+		"dev": "npm run development",
+		"watch:js-admin": "npm run development:js-admin -- --watch",
+		"watch:js-front": "npm run development:js-front -- --watch",
+		"watch:css-admin": "npm run development:css-admin -- --watch",
+		"watch:css-front": "npm run development:css-front -- --watch",
+		"watch": "run-p watch:**",
+		"production:js-admin": "npm run development:js-admin -- --minify",
+		"production:js-front": "npm run development:js-front -- --minify",
+		"production:css-admin": "npm run development:css-admin -- --minify",
+		"production:css-front": "npm run development:css-front -- --minify",
+		"production": "run-p production:**",
+		"prod": "npm run production"
+	},
+	"dependencies": {
+		"dayjs": "^1.11.7"
+	}
+}

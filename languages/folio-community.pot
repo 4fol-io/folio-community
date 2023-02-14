@@ -1,0 +1,220 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Folio Community v1.0.0\n"
+"POT-Creation-Date: 2023-01-26 17:41+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.2.2\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_n_noop:1,2;_x:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_ex:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: assets\n"
+"X-Poedit-SearchPathExcluded-1: node_modules\n"
+
+#: classes/class-folio-community-settings.php:111
+#: classes/class-folio-community-settings.php:330
+msgid "Select one"
+msgstr ""
+
+#: classes/class-folio-community-settings.php:112
+#: classes/class-folio-community-settings.php:472
+msgid "All"
+msgstr ""
+
+#: classes/class-folio-community-settings.php:135
+msgid "Community"
+msgstr ""
+
+#: classes/class-folio-community-settings.php:169
+#: classes/class-folio-community-settings.php:170
+#: classes/class-folio-community-settings.php:194
+#: classes/class-folio-community-settings.php:195
+msgid "Folio Community"
+msgstr ""
+
+#: classes/class-folio-community-settings.php:225
+msgid "Community Settings"
+msgstr ""
+
+#: classes/class-folio-community-settings.php:232
+msgid "Community Site"
+msgstr ""
+
+#: classes/class-folio-community-settings.php:240
+msgid "Recent activity register limit"
+msgstr ""
+
+#: classes/class-folio-community-settings.php:264
+msgid "Options Saved"
+msgstr ""
+
+#: classes/class-folio-community-settings.php:301
+msgid "Here you can set the community settings."
+msgstr ""
+
+#: classes/class-folio-community-settings.php:442
+msgid "Index Community Sites"
+msgstr ""
+
+#: classes/class-folio-community-settings.php:443
+msgid "This process can take a long time to run if select ALL sites!"
+msgstr ""
+
+#: classes/class-folio-community-settings.php:455
+msgid "Security check"
+msgstr ""
+
+#: classes/class-folio-community-settings.php:465
+msgid "Site to index"
+msgstr ""
+
+#: classes/class-folio-community-settings.php:484
+msgid "Start indexing"
+msgstr ""
+
+#: classes/class-folio-community-settings.php:584
+msgid "Site indexing completed successfully!"
+msgstr ""
+
+#: classes/class-folio-community-settings.php:686
+msgid "Available Shortcodes"
+msgstr ""
+
+#: classes/class-folio-community-settings.php:687
+msgid "These shortcodes are specially designed for the Folio community theme."
+msgstr ""
+
+#: classes/class-folio-community-shortcodes.php:57
+msgid "Search the community"
+msgstr ""
+
+#: classes/class-folio-community-shortcodes.php:59
+#: classes/class-folio-community-shortcodes.php:110
+msgid "Search"
+msgstr ""
+
+#: classes/class-folio-community-shortcodes.php:70
+#, php-format
+msgid "Sorry, the shortcode %sfolio-community-search%s is not available on this site."
+msgstr ""
+
+#: classes/class-folio-community-shortcodes.php:100
+msgid "Search for:"
+msgstr ""
+
+#: classes/class-folio-community-shortcodes.php:113
+msgid "(opens in a new tab)"
+msgstr ""
+
+#: classes/class-folio-community-shortcodes.php:126
+msgid "Search Agoras names"
+msgstr ""
+
+#: classes/class-folio-community-shortcodes.php:134
+msgid "Search for people in Folio"
+msgstr ""
+
+#: classes/class-folio-community-shortcodes.php:159
+#: classes/class-folio-community-shortcodes.php:166
+#: classes/class-folio-community-shortcodes.php:271
+#: classes/class-folio-community-shortcodes.php:278
+msgid "Load More"
+msgstr ""
+
+#: classes/class-folio-community-shortcodes.php:191
+msgid "Recent Activity"
+msgstr ""
+
+#: classes/class-folio-community-shortcodes.php:204
+#, php-format
+msgid "Sorry, the shortcode %sfolio-community-publications%s is not available on this site."
+msgstr ""
+
+#: classes/class-folio-community-shortcodes.php:233
+#, php-format
+msgid "You only see public entries, %slogin%s to see all"
+msgstr ""
+
+#: classes/class-folio-community-shortcodes.php:243
+msgid "Updated"
+msgstr ""
+
+#: classes/class-folio-community-shortcodes.php:243
+#: classes/class-folio-community-shortcodes.php:247
+msgid "Refresh"
+msgstr ""
+
+#: classes/class-folio-community-shortcodes.php:310
+#: classes/class-folio-community-shortcodes.php:397
+msgid "Invalid security token sent."
+msgstr ""
+
+#: classes/class-folio-community-shortcodes.php:364
+#: classes/class-folio-community-shortcodes.php:459
+msgid "No results found"
+msgstr ""
+
+#: classes/class-folio-community-shortcodes.php:554
+#, php-format
+msgid "Posted in %s"
+msgstr ""
+
+#: classes/class-folio-community-shortcodes.php:643
+#: classes/class-folio-community-shortcodes.php:696
+msgid "Previous"
+msgstr ""
+
+#: classes/class-folio-community-shortcodes.php:644
+#: classes/class-folio-community-shortcodes.php:726
+msgid "Next"
+msgstr ""
+
+#: classes/class-folio-community-shortcodes.php:645
+msgid "Navigation"
+msgstr ""
+
+#: classes/class-folio-community-shortcodes.php:666
+msgid "Page"
+msgstr ""
+
+#: classes/class-folio-community-shortcodes.php:819
+#: classes/class-folio-community-shortcodes.php:826
+msgid "Visibility"
+msgstr ""
+
+#: classes/class-folio-community-shortcodes.php:819
+msgid "Campus"
+msgstr ""
+
+#: classes/class-folio-community-shortcodes.php:826
+msgid "Public"
+msgstr ""
+
+#: classes/class-folio-community-shortcodes.php:856
+#: classes/class-folio-community-shortcodes.php:882
+#, php-format
+msgctxt "%s = human-readable time difference"
+msgid "%s ago"
+msgstr ""
+
+#: folio-community.php:101
+#, php-format
+msgid "%sFolio Community%s requires %sPortafolis Create Site%s to be installed & activated!"
+msgstr ""
+
+#: folio-community.php:105
+#, php-format
+msgid "%sFolio Community%s requires %sPortafolis UOC Access%s to be installed & activated!"
+msgstr ""
+
+#: folio-community.php:119
+msgid "Back to previos page"
+msgstr ""

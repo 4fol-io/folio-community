@@ -1,0 +1,397 @@
+:root{
+    --folio-comm-primary: #00233D;
+    --folio-comm-secondary: #dddde7;
+    --folio-comm-gray: #6c757d;
+}
+
+.folio-comm-hidden{
+    display: none!important;
+}
+
+.folio-comm-section{
+    position: relative;
+    margin-bottom: 2.5rem;
+}
+
+.folio-comm-heading{
+    margin-bottom: 2.5rem;
+}
+
+.folio-comm-heading a{
+    text-decoration: underline;
+}
+
+h2.folio-comm-heading__title{
+    margin-bottom: .5rem;
+}
+
+p.folio-comm-heading__info{
+    font-size: 1.125rem;
+    font-size: .875rem;
+    font-weight: normal;
+    margin-bottom: .5rem;
+    color: var(--folio-comm-gray);
+}
+
+p.folio-comm-heading__info .sep{
+    color: var(--folio-comm-secondary);
+    padding: 0 .25rem;
+}
+
+p.folio-comm-heading__info time{
+    color: var(--folio-comm-primary);
+}
+
+.folio-comm-refresh-btn{
+    text-decoration: none!important;
+}
+
+.folio-comm-refresh-btn svg{
+    transition: all .25s ease;
+    width: 20px;
+    height: 20px;
+}
+
+.folio-comm-refresh-btn:hover svg{
+    transform: rotate(-180deg);
+}
+
+.folio-comm-list{
+    margin: 0;
+    padding: 0;
+}
+
+.folio-comm-list .folio-comm-list__item{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-bottom: 2rem;
+} 
+
+.folio-comm-list .folio-comm-list__avatar{
+    width: 80px;
+    height: 80px;
+    min-width: 80px;
+    margin-right: 1.125rem;
+    border-radius: 50%;
+    overflow:hidden;
+    background-color: rgba(232, 232, 232, 0.22);
+    border: 1px solid rgba(232, 232, 232, 0.22);
+}
+
+.folio-comm-list .folio-comm-list__avatar img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.folio-comm-list .folio-comm-list__item .folio-comm-list__top{
+    display: block;
+    margin: .15rem 0 .5rem;
+    font-size: .875rem;
+}
+
+.folio-comm-list .folio-comm-list__item .folio-comm-list__top *{
+    display: inline;
+}
+
+.folio-comm-list .folio-comm-list__item .folio-comm-list__title{
+    margin-bottom: .5rem;
+    font-weight: normal;
+}
+
+.folio-comm-list .folio-comm-list__item .folio-comm-list__meta{
+    display: block;
+    margin-bottom: .5rem;
+    font-size: 1rem;
+}
+
+.folio-comm-list .folio-comm-list__item .folio-comm-list__time{
+    display:inline-block;
+}
+
+.folio-comm-list .folio-comm-list__item .folio-comm-list__time:first-letter{
+    text-transform: uppercase;
+
+}
+
+@media (max-width: 767px){
+    .folio-comm-list .folio-comm-list__avatar{
+        width: 50px;
+        height: 50px;
+        min-width: 50px;
+        margin-right: .75rem;
+    }
+    
+    .folio-comm-list .folio-comm-list__item time.folio-comm-list__time{
+        margin-top: 0;
+    }
+
+    p.folio-comm-heading__info > span{
+        display: block;
+        margin-bottom: .25rem;
+    }
+
+    p.folio-comm-heading__info > span.sep{
+        display: none;
+    }
+}
+
+.folio-comm-loading {
+    position: relative;
+    display: inline-block;
+    font-size: 1rem;
+    font-weight: normal;
+    text-transform: none;
+    min-height: 24px;
+    min-width: 24px;
+    line-height: 24px;
+}
+
+.folio-comm-loading:before {
+    content: '';
+    box-sizing: border-box;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid;
+    border-color: var(--folio-comm-secondary);
+    border-top-color: var(--folio-comm-primary);
+    animation: spin .5s linear infinite;
+}
+
+.folio-comm-infinite-btn{
+    display: block;
+    margin: 0 auto;
+    font-weight: 400;
+    color: var(--folio-comm-primary);
+    text-align: center;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-color: transparent;
+    border: 1px solid transparent;
+    padding: 0.5rem;
+    font-size: 1rem;
+    line-height: 1;
+}
+
+.folio-comm-more-btn.loading{
+    background-color: transparent !important;
+    border-color: transparent !important;
+    outline: none !important;
+    box-shadow: none !important;
+    pointer-events: none !important;
+}
+
+.folio-comm-more-btn .folio-comm-loading{
+    min-height: 16px;
+    min-width: 16px;
+    line-height: 16px;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+.folio-comm-search{
+    margin-bottom: 2rem;
+}
+
+.folio-comm-search-form[target="_self"] .folio-comm-search-ext-icon{
+    display: none;
+}
+
+.folio-comm-search-inner{
+    display: flex;
+    flex-wrap: nowrap;
+    position: relative;
+    width: 100%;
+    align-items: stretch;
+    margin-bottom: .5rem;
+}
+
+.folio-comm-search-field-wrapper{
+    display: flex;
+    flex-wrap: nowrap;
+    position: relative;
+    width: 100%;
+}
+
+.folio-comm-search-field-wrapper .folio-comm-loading{
+    position: absolute;
+    top: 13px;
+    right: 12px;
+}
+
+.folio-comm-search-filters{
+    margin-bottom: 1.5rem;
+}
+
+.folio-comm-search-inner .folio-comm-search-field{
+    flex: 1 1 auto;
+    margin-bottom: 0;
+    min-width: 1px;
+    position: relative;
+}
+
+.folio-comm-search-inner .folio-comm-search-append{
+    margin-left: 1rem;
+}
+
+.folio-comm-search-inner .search-submit{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.folio-comm-search-inner .folio-comm-search-ext-icon{
+    position: relative;
+    margin-left: .5rem;
+    top: -1px;
+}
+
+.folio-comm-search-inner .folio-comm-search-ext-icon svg{
+    width: 16px;
+    height: 16px;
+}
+
+.folio-comm-check{
+    position: relative;
+    display: inline-block;
+    padding-left: 1.5em;
+    margin-bottom: 0.5rem;
+    margin-right:  1rem;
+}
+
+.folio-comm-check .folio-comm-check-label {
+    font-weight: normal;
+    font-size: 1rem;
+}
+
+.folio-comm-check .folio-comm-check-input {
+    float: left;
+    margin-left: -1.7em;
+}
+
+.folio-comm-check .folio-comm-check-input[type=checkbox] {
+    width: 1.2em;
+    height: 1.2em;
+    padding: 0;
+    margin-top: 0.1em;
+    vertical-align: top;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    border-radius: 2px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    -webkit-print-color-adjust: exact;
+    color-adjust: exact;
+}
+
+.folio-comm-check .folio-comm-check-input[type=checkbox]:checked{
+    border-color: var(--folio-comm-primary);
+    background-color: var(--folio-comm-primary);
+}
+
+.folio-comm-result{
+    margin-bottom: 2.5rem;
+}
+
+.folio-comm-result a.folio-comm-result__link{
+    text-decoration: none;
+    display:block;
+}
+
+.folio-comm-result .folio-comm-result__site{
+    display: block;
+    position: relative;
+    padding-left: 32px;
+    font-size: .875rem;
+    margin-bottom: .5rem;
+}
+
+.folio-comm-result a.folio-comm-result__link:hover .folio-comm-result__title,
+.folio-comm-result a.folio-comm-result__link:focus .folio-comm-result__title{
+    text-decoration:underline;
+}
+
+.folio-comm-result a.folio-comm-result__link:hover .folio-comm-result__site,
+.folio-comm-result a.folio-comm-result__link:focus .folio-comm-result__site{
+    text-decoration: none;
+}
+
+.folio-comm-result a.folio-comm-result__link:focus-visible{
+    outline: none;
+    background-color: rgba(232, 232, 232, 0.15);
+}
+
+.folio-comm-result .folio-comm-result__url{
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.folio-comm-result .folio-comm-result__icon{
+    position: absolute;
+    left: 0;
+    top: -2px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 1px solid rgba(232, 232, 232, 0.22);
+    overflow:hidden;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: rgba(232, 232, 232, 0.22);
+}
+
+.folio-comm-result .folio-comm-result__icon-agores{
+    background-image: url('../img/uoc-icon.png');
+}
+
+.folio-comm-result .folio-comm-result__icon img{
+    width: 100%;
+    height: 100%;
+    object-fit:cover;
+}
+
+.folio-comm-result .folio-comm-result__title{
+    margin-bottom: .5rem;
+    font-weight: normal;
+}
+
+.folio-comm-result .folio-comm-result__desc{
+    margin-bottom: .25rem;
+    font-size: 1rem;
+}
+
+.folio-comm-result .folio-comm-result__semester{
+    color: var(--folio-comm-gray);
+}
+
+
+.folio-comm-toggle-content {
+    display: none;
+    height: 0;
+    overflow: hidden;
+    transition: height .35s ease-in;
+}
+
+.folio-comm-toggle-content.is-visible {
+    display: block;
+    height: auto;
+    transition: height .25s ease-out;
+}
