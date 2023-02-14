@@ -1,4 +1,4 @@
-# Folioo Community Plugin
+# Folio Community Plugin
 
 ## Description
 
