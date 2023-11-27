@@ -77,3 +77,8 @@ $ pnpm prod
 - Added dayjs dependency
 - Recent activity post human friendly time ago
 - Fix: Recent activity post timezone conversion
+
+
+#### v1.0.3
+- Community share blacklisted users
+- Admin list community posts with delete option
