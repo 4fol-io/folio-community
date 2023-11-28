@@ -1,5 +1,7 @@
 <?php
 
+use function Crontrol\Event\run;
+
 /**
  * Folio Community Settings Management
  * 
@@ -57,11 +59,18 @@ class Folio_Community_Settings {
 				add_action( 'admin_menu', 			[$this, 'add_admin_settings']);
 			}
 
+			add_filter( 'get_edit_post_link', 		[$this, 'community_get_edit_post_link'], 10, 3 );
+			
+			add_filter( 'post_row_actions', 		[$this, 'remove_community_row_actions'], 10, 1 );
+
+			add_filter( 'bulk_actions-edit-' . FOLIO_COMMUNITY_CPT_KEY, [$this, 'remove_community_bulk_actions'] );
+
 			// Register Settings
 			add_action( 'admin_init',				[$this, 'register_settings']);
 
 			// Ajax site search
 			add_action( 'wp_ajax_folio_comm_search_site_ajax', [$this, 'ajax_search_site'] );
+		
 
 		}
 
@@ -138,20 +147,70 @@ class Folio_Community_Settings {
 				'public' 				=> true,
 				'publicly_queryable' 	=> true,
 				'exclude_from_search' 	=> false,
-				'show_ui' 				=> false, //$blog_id === $comm_id,
-				'show_in_menu' 			=> false, //$blog_id === $comm_id,
+				'show_ui' 				=> $blog_id === $comm_id,
+				'show_in_menu' 			=> $blog_id === $comm_id,
 				'show_in_nav_menus' 	=> false,
 				'show_in_rest' 			=> true,
 				'query_var' 			=> true,
 				'has_archive' 			=> false,
 				'can_export' 			=> false,
-				'menu_icon' 			=> 'dashicons-share',
+				'menu_icon' 			=> 'dashicons-share'
 			);
 
 			register_post_type( FOLIO_COMMUNITY_CPT_KEY, $args );
 
 		}
 
+	}
+
+		
+	/**
+	 * Remove row actions
+	 * 
+	 * Since 1.0.3
+	 */
+	public function remove_community_row_actions( $actions ){
+		if( get_post_type() === FOLIO_COMMUNITY_CPT_KEY ){
+			unset( $actions['edit'] );
+			unset( $actions['view'] );
+			unset( $actions['inline hide-if-no-js'] );
+		}
+		return $actions;
+	}
+
+	
+	/**
+	 * Remove edit bulk actions
+	 * 
+	 * Since 1.0.3
+	 */
+    public function remove_community_bulk_actions( $actions ){
+        unset( $actions[ 'edit' ] );
+        return $actions;
+    }
+
+	
+	/**
+	 * Filter Edit Post Link
+	 */
+	public function community_get_edit_post_link( $link, $post_id, $context ) {
+		if ( get_post_type($post_id) === FOLIO_COMMUNITY_CPT_KEY ) {
+			$origin_blog_id = get_post_meta($post_id, 'folio_community_origin_blog_id', true);
+			$origin_post_id = get_post_meta($post_id, 'folio_community_origin_post_id', true);
+			if ($origin_blog_id && $origin_post_id) {
+				switch_to_blog($origin_blog_id);
+					$link_temp = get_edit_post_link( $origin_post_id, $context );
+					if ( $link_temp != null && ! empty( $link_temp ) ) {
+						$link = $link_temp;
+					}else{
+						$link = null;
+					}
+				restore_current_blog();
+			}else{
+				$link = null;
+			}
+		}
+		return $link;
 	}
 
 
@@ -242,6 +301,25 @@ class Folio_Community_Settings {
 			$this->settings_slug . '-page',
 			$this->settings_slug . '-section'
 		);
+
+		add_settings_field(
+			'blacklist',
+			__('Blacklist emails', 'folio-community'),
+			[$this, 'setting_blacklist_field'],
+			$this->settings_slug . '-page',
+			$this->settings_slug . '-section',
+			array(__('Posts from blacklisted users will never be shared with the community (separate emails with commas)', 'folio-community'))
+		);
+
+		add_settings_field(
+			'more_info_url',
+			__('Community More Info Link URL', 'folio-community'),
+			[$this, 'setting_more_info_url_field'],
+			$this->settings_slug . '-page',
+			$this->settings_slug . '-section'
+		);
+
+
 
 	}
 
@@ -352,6 +430,42 @@ class Folio_Community_Settings {
 
 	}
 
+	/**
+	 * Emails blacklist setting field
+	 *
+	 * @since 1.0.3
+	 * 
+	 * @access public
+	 */
+	public function setting_blacklist_field($args) {
+		$options = get_site_option(FOLIO_COMMUNITY_OPTIONS_KEY);
+		$list = isset($options['blacklist']) ? $options['blacklist'] : [];
+		$list_str = implode(",", $list);
+
+		$html = '<input type="text" name="' . FOLIO_COMMUNITY_OPTIONS_KEY . '[blacklist]" value="' . $list_str . '" class="large-text">';
+		$html .= '<p class="description">'  . $args[0] . '</p>';
+
+		echo $html;
+	}
+
+
+	/**
+	 * Emails more info url setting field
+	 *
+	 * @since 1.0.3
+	 * 
+	 * @access public
+	 */
+	public function setting_more_info_url_field($args) {
+		$options = get_site_option(FOLIO_COMMUNITY_OPTIONS_KEY);
+		$url = isset($options['more_info_url']) ? sanitize_url($options['more_info_url']) : '';
+
+		$html = '<input type="url" name="' . FOLIO_COMMUNITY_OPTIONS_KEY . '[more_info_url]" value="' . $url . '" class="large-text" placeholder="https://">';
+		$html .= '<p class="description">'  . $args[0] . '</p>';
+
+		echo $html;
+	}
+
 
 	/**
 	 * Settings validation
@@ -361,6 +475,15 @@ class Folio_Community_Settings {
 	public function validate_settings( $input ) {
 		$output['community_site'] =  absint( $input['community_site'] );
 		$output['activity_limit'] =  absint( $input['activity_limit'] );
+		$output['more_info_url'] =  sanitize_url( $input['more_info_url'] );
+
+
+		$blacklist = isset($input['blacklist']) ? sanitize_text_field(trim($input['blacklist'])) : '';
+		if ($blacklist) {
+			$output['blacklist'] = array_map('trim', explode(',', $blacklist));
+		} else {
+			$output['blacklist'] = [];
+		}
 		return $output;
 	}
 

@@ -42,27 +42,51 @@ class Folio_Community_Publications {
 		if ( ! $this->check_if_save_community_post( $post_id, $post ) ) {
 			return $post_id;
 		}
+		
+		// Is personal blog
+		if ( uoc_create_site_is_student_blog() ) {
 
-		//The user is editing his personal blog
-		if ( uoc_create_site_is_current_student_blog() ) {
-
-			$options = get_site_option(FOLIO_COMMUNITY_OPTIONS_KEY);
-			$comm_id = isset($options['community_site']) ? absint($options['community_site']) : 0;
+			$options 	 = get_site_option(FOLIO_COMMUNITY_OPTIONS_KEY);
+			$comm_id     = isset($options['community_site']) ? 
+				absint($options['community_site']) : 0;
+			$blacklisted = $this->is_blacklisted_user();
+			$share 		 = isset( $_POST['folio_community_share'] ) ? 
+				absint($_POST['folio_community_share']) : '';
 
 			if ($comm_id > 0){
 
 				$blog_id              = get_current_blog_id();
 				$visibility      	  = uoc_create_site_get_visibility( $post_id );
 
-				switch ( $visibility ) {
-					// Public|Campus: publish
-					case PORTAFOLIS_UOC_ACCESS_WORLD:
-					case PORTAFOLIS_UOC_ACCESS_UOC:
-						$this->save_community_post( $post, $blog_id, $comm_id, $visibility );
-						break;
-					// Rest: delete if exists on community site
-					default:
-						$this->delete_community_post( $post->ID, $blog_id, $comm_id );		
+				update_post_meta($post_id, 'folio_community_share', $share);
+
+				if ( $blacklisted ) {
+					// blacklisted user: delete community post if exists
+					$this->delete_community_post( $post->ID, $blog_id, $comm_id );
+				} else {
+
+					if ( $share !== ''){ // Share checkbox value received
+						// Update post meta
+						update_post_meta($post_id, 'folio_community_share', $share);
+						// update user meta
+						update_user_meta(get_current_user_id(), 'folio_community_share', $share);
+					}
+
+					if ( $share !== 1 ) {
+						// Share unchecked or empty: delete community post if exists
+						$this->delete_community_post( $post->ID, $blog_id, $comm_id );
+					} else {
+						switch ( $visibility ) {
+							// Public|Campus: publish
+							case PORTAFOLIS_UOC_ACCESS_WORLD:
+							case PORTAFOLIS_UOC_ACCESS_UOC:
+								$this->save_community_post( $post, $blog_id, $comm_id, $visibility );
+								break;
+							// Rest: delete if exists on community site
+							default:
+								$this->delete_community_post( $post->ID, $blog_id, $comm_id );		
+						}
+					}
 				}
 
 			}
@@ -101,6 +125,8 @@ class Folio_Community_Publications {
 
 		return $post_id;
 	}
+
+
 
 
 	/**
@@ -356,7 +382,22 @@ class Folio_Community_Publications {
 		return $post_type;
 	}
 
-
+	/**
+	 * Check if current user is share community blacklisted
+	 *
+	 * @since    1.0.3
+	 * @return bool
+	 */
+	public function is_blacklisted_user(){
+		$comm_options = get_site_option(FOLIO_COMMUNITY_OPTIONS_KEY);
+		$comm_blacklist = isset($comm_options['blacklist']) ? $comm_options['blacklist'] : [];
+		$current_user  = wp_get_current_user();
+		$comm_user_blacklist = in_array($current_user->user_email, $comm_blacklist);
+		if ($comm_user_blacklist){
+			return true;
+		}
+		return false;
+	}
 
 	/**
 	 * Return allowed community post types
